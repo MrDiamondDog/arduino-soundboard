@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Soundboard Logs</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div id="container">
+            <div id="controls">
+                <button id="stop">Stop</button>
+                <button id="restart">Restart</button>
+            </div>
+            <div id="logs"></div>
+            <div><input id="input" /></div>
+        </div>
+        <script>
+            const container = document.getElementById("logs");
+            const stop = document.getElementById("stop");
+            const restart = document.getElementById("restart");
+            const input = document.getElementById("input");
+
+            stop.addEventListener("click", () => {
+                fetch("/stop");
+            });
+
+            restart.addEventListener("click", () => {
+                fetch("/restart");
+            });
+
+            input.addEventListener("keydown", (e) => {
+                if (e.key !== "Enter") return;
+
+                fetch("/command", {
+                    method: "POST",
+                    body: JSON.stringify({command: input.value}),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                input.value = "";
+            });
+
+            function logToHTML(log) {
+                log.time = new Date(log.time);
+
+                const hours =
+                    log.time.getHours() > 12 ? log.time.getHours() - 12 : log.time.getHours();
+                let minutes = log.time.getMinutes();
+                minutes = minutes < 10 ? `0${minutes}` : minutes;
+                let seconds = log.time.getSeconds();
+                seconds = seconds < 10 ? `0${seconds}` : seconds;
+                const ampm = log.time.getHours() >= 12 ? "PM" : "AM";
+
+                return `<div class="log">
+                            <div class="log-time">${hours}:${minutes}:${seconds} ${ampm}</div>
+                            <div class="log-ctx">${log.ctx}</div>
+                            <div class="log-message">${log.message.join(" ")}</div>
+                        </div>`;
+            }
+
+            const connection = new WebSocket("ws://localhost:2346");
+
+            connection.onopen = () => {
+                console.log("Connected to server");
+                connection.send("all");
+            };
+
+            connection.onerror = (error) => {
+                console.log(`WebSocket error: ${error}`);
+            };
+
+            connection.onmessage = (e) => {
+                if (e.data.startsWith("all:")) {
+                    const logs = JSON.parse(e.data.slice(4));
+                    container.innerHTML = logs.map(logToHTML).join("");
+                } else if (e.data.startsWith("new:")) {
+                    const log = JSON.parse(e.data.slice(4));
+                    container.innerHTML += logToHTML(log);
+                } else {
+                    console.log("Unknown", e.data);
+                }
+            };
+
+            connection.onclose = () => {
+                console.log("Connection closed");
+            };
+        </script>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+{
+    "blacklistProcesses": [
+        "System Sounds",
+        "steamwebhelper",
+        "svchost",
+        "steam",
+        "Explorer",
+        "",
+        "ShellExperience",
+        "msrdc",
+        "GameBar",
+        "iCUE",
+        "SearchHost",
+        "wwahost",
+        "wallpaper32"
+    ],
+    "priorityProcesses": ["Spotify", "Discord"],
+    "heartbeatInterval": 60000,
+    "heartbeatExpire": 5000
+}
