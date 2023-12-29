@@ -1,12 +1,14 @@
 # Arduino Soundboard
 
-A soundboard made for an Arduino Mega 2560 that connects to your PC to adjust the volume of applications.
+A soundboard made for an Arduino Mega 2560 that connects to your PC to adjust the volume of applications. 
 
 ![image](soundboard.jpg)
 
 ## How to make
 
 There are a few steps required... and some money.
+
+If you plan on making this, please read the whole document to fully understand what and how you are making this.
 
 ### Ingredients
 
@@ -65,7 +67,8 @@ There are a few steps required... and some money.
     -   `priorityProcesses`: A list of processes to give priority to, to add one, just add the exact name of the process from the soundboard to the array. This will move that process to the front.
     -   `heartbeatInterval`: The interval in milliseconds to send a heartbeat to the Arduino. This is used to make sure the Arduino is still connected.
     -   `heartbeatTimeout`: The timeout in milliseconds to wait for a heartbeat from the Arduino. If the Arduino does not send a heartbeat in this time, the program will re-open a connection to the Arduino.
--   To shut down the program, open task manager and find `Node.js JavaScript Runtime` (you may have to scroll a while), and end the task.
+-   The web panel is hosted on http://localhost:2345/, this lets you view the logs and stop/restart the backend.
+-   To force-shut down the program, open task manager and find `Node.js JavaScript Runtime` (you may have to scroll a while), and end the task.
 -   If the PC disconnects from the Arduino (the program stops), the soundboard will tell you.
 -   If the PC is disconnected forcefully (unplugged), you will notice the soundboard will not tell you, but the program will stop working.
 -   There is a `logs.txt` file where the executable is, it may get big if you leave it running for a while.
