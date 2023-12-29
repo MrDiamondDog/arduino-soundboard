@@ -32,7 +32,7 @@ If you plan on making this, please read the whole document to fully understand w
     5. Select the Arduino Mega 2560 and port in the IDE
     6. Upload the code to the Arduino
 3. 3D Printing
-    1. Download the STL file from [here](Case.md)
+    1. Download the STL file from [here](case.md)
     2. Print it (any color, any filament, it doesn't matter)
 4. Assembly (this requires _some_ knowledge of electronics)
     1. Put the Arduino in the case, so the hole lines up with the port
