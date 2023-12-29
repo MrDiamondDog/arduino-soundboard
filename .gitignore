@@ -3,3 +3,4 @@ package-lock.json
 node/dist/
 out/
 logs.txt
+soundboard_nogui.vbs
