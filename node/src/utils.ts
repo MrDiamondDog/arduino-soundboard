@@ -5,7 +5,7 @@ import fs from "fs";
 export const Logs: Log[] = [];
 export const OnLog = new EventEmitter();
 
-fs.writeFileSync("logs.txt", "");
+fs.rmSync("logs.txt", { force: true });
 
 export function DateStr(date: Date): string {
     const hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();

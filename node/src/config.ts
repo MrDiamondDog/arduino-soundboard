@@ -1,13 +1,15 @@
 import fs from "fs";
 
+const configPath = fs.existsSync("config.json") ? "config.json" : "../config.json";
+
 function read(data: string) {
     return JSON.parse(data);
 }
 
-export let config: Config = read(fs.readFileSync("config.json").toString());
-fs.watch("config.json", "utf8", (eventType, filename) => {
+export let config: Config = read(fs.readFileSync(configPath).toString());
+fs.watch(configPath, "utf8", (eventType, filename) => {
     if (eventType === "change") {
-        config = read(fs.readFileSync("config.json").toString());
+        config = read(fs.readFileSync(configPath).toString());
     }
 });
 

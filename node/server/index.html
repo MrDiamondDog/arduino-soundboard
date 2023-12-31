@@ -77,8 +77,18 @@
                     const logs = JSON.parse(e.data.slice(4));
                     container.innerHTML = logs.map(logToHTML).join("");
                 } else if (e.data.startsWith("new:")) {
+                    let scroll = false;
+                    if (
+                        container.scrollTop + container.clientHeight >=
+                        container.scrollHeight - 10
+                    ) {
+                        scroll = true;
+                    }
+
                     const log = JSON.parse(e.data.slice(4));
                     container.innerHTML += logToHTML(log);
+
+                    if (scroll) container.scrollTop = container.scrollHeight;
                 } else {
                     console.log("Unknown", e.data);
                 }
