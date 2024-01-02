@@ -15,7 +15,7 @@ export function getVolumeProcesses(): VolumeProcess[] {
 
     const audioSessions = NodeAudioVolumeMixer.getAudioSessionProcesses();
 
-    audioSessions.forEach(session => session.name = session.name.replace(/\.(exe|EXE)/g, ""));
+    audioSessions.forEach(session => session.name = session.name.replace(".exe", "").replace(".EXE", ""));
 
     audioSessions.forEach(session => {
         if (foundProcesses.includes(session.name))

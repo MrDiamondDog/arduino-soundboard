@@ -13,34 +13,19 @@
                 <button id="restart">Restart</button>
             </div>
             <div id="logs"></div>
-            <div><input id="input" /></div>
         </div>
         <script>
             const container = document.getElementById("logs");
-            const stop = document.getElementById("stop");
+            const stop_ = document.getElementById("stop");
             const restart = document.getElementById("restart");
             const input = document.getElementById("input");
 
-            stop.addEventListener("click", () => {
+            stop_.addEventListener("click", () => {
                 fetch("/stop");
             });
 
             restart.addEventListener("click", () => {
                 fetch("/restart");
-            });
-
-            input.addEventListener("keydown", (e) => {
-                if (e.key !== "Enter") return;
-
-                fetch("/command", {
-                    method: "POST",
-                    body: JSON.stringify({command: input.value}),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-
-                input.value = "";
             });
 
             function logToHTML(log) {

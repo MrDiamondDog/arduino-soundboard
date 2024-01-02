@@ -1,6 +1,6 @@
 {
     "name": "arduino-soundboard",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "A soundboard that connects to your computer via USB to adjust the volume of indivdual applications.",
     "main": "node/dist/index.js",
     "private": true,
@@ -39,7 +39,8 @@
         "eslint-import-resolver-alias": "^1.1.2",
         "eslint-plugin-path-alias": "^1.0.0",
         "eslint-plugin-simple-import-sort": "^10.0.0",
-        "eslint-plugin-unused-imports": "^2.0.0"
+        "eslint-plugin-unused-imports": "^2.0.0",
+        "typescript": "^5.3.3"
     },
     "pkg": {
         "outputPath": "./out",
